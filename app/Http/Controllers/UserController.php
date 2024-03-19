@@ -29,9 +29,29 @@ class UserController extends Controller
         //     'username' => $username,
         //     'password' => Hash::make($password),
         // ]);
-        
+
+        if (empty($fetched)) return ['error' => 'User not found'];
         if (!Hash::check($password, $fetched->password)) return ['error' => 'Invalid Password'];
 
         return $fetched;
+    }
+
+    public function register()
+    {
+        if (empty(request()->get('username'))) return ['error' => 'Empty username'];
+
+        $username = request()->get('username');
+        $password = request()->get('password');
+        
+        Admin::firstOrCreate([
+            'first_name' => 'Raldin',
+            'middle_name' => 'Casidar',
+            'last_name' => 'Disomimba',
+            'profile_picture' => 'N/A',
+            'username' => $username,
+            'password' => Hash::make($password),
+        ]);
+
+        return ['message' => 'User created'];
     }
 }
