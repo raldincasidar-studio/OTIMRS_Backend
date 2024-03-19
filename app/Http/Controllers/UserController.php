@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Session;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -32,7 +33,16 @@ class UserController extends Controller
 
         if (empty($fetched)) return ['error' => 'User not found'];
         if (!Hash::check($password, $fetched->password)) return ['error' => 'Invalid Password'];
+        
+        // $fetched->success = 1; // Indicate success
+        // Remove password from return value
 
+        $session_id = Session::create([
+            'admin_id' => $fetched->id
+        ]);
+
+        unset($fetched->password); // Remove password from return 
+        $fetched->session_id = $session_id->id; 
         return $fetched;
     }
 
@@ -53,5 +63,16 @@ class UserController extends Controller
         ]);
 
         return ['message' => 'User created'];
+    }
+
+    public function logout()
+    {
+        if (empty(request()->get('session_id'))) return ['error' => 'Required fields failed'];
+
+        $id = request()->get('session_id');
+        
+        Session::where('id', $id)->delete();
+
+        return ['message' => 'Logged Out'];
     }
 }
