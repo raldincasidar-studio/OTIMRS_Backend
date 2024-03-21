@@ -13,23 +13,27 @@ class TouristController extends Controller
             'name' => 'required',
             'location' => 'required',
             'days' => 'required|string',
-            'email' => 'required|email|unique:tourists',
+            'email' => 'required|email',
             'first_name' => 'required',
             'last_name' => 'required',
+            'middle_name' => 'required',
             'gender' => 'required|in:Male,Female,Other',
             'birthdate' => 'required|date',
             'address' => 'required',
             'nationality' => 'required',
         ]);
 
-        if (Tourist::where('email', $request->email)->count() > 0) {
-            return ['error' => 'Email already registered'];
-        }
-
         $tourist = Tourist::updateOrCreate($validatedData);
 
         $tourist->success = 1;
         $tourist->message = 'Successfuly added!';
         return $tourist;
+    }
+
+    public function get(Request $request)
+    {
+        $tourists = Tourist::orderBy('id', 'desc')->get();
+
+        return ['success' => 1, 'data' => $tourists];
     }
 }

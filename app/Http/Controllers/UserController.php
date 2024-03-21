@@ -67,11 +67,12 @@ class UserController extends Controller
 
     public function logout()
     {
-        if (empty(request()->get('session_id'))) return ['error' => 'Required fields failed'];
+        // Check the request header for authorization token
+        if (!request()->hasHeader('Authorization')) return ['error' => 'Authorization ID empty'];
+        $id = request()->header('Authorization');
 
-        $id = request()->get('session_id');
-        
-        Session::where('id', $id)->delete();
+        // Check if session exists
+        $session = Session::where('id', $id)->delete();
 
         return ['message' => 'Logged Out'];
     }
