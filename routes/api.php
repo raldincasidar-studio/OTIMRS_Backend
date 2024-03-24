@@ -30,5 +30,6 @@ Route::middleware(['check_admin_auth'])->group(function() {
     // Route::get('/piste', [UserController::class, 'login']);
     Route::get('/logout', [UserController::class, 'logout']);
     Route::get('/tourists', [TouristController::class, 'get']);
+    Route::get('/tourists/{id}', [TouristController::class, 'person']);
     
 });

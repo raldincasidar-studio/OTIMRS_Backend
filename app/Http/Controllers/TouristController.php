@@ -17,7 +17,7 @@ class TouristController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'middle_name' => 'required',
-            'gender' => 'required|in:Male,Female,Other',
+            'gender' => 'required|string',
             'birthdate' => 'required|date',
             'address' => 'required',
             'nationality' => 'required',
@@ -33,6 +33,13 @@ class TouristController extends Controller
     public function get(Request $request)
     {
         $tourists = Tourist::orderBy('id', 'desc')->get();
+
+        return ['success' => 1, 'data' => $tourists];
+    }
+
+    public function person(Request $request, string $id)
+    {
+        $tourists = Tourist::where('id', $id)->first();
 
         return ['success' => 1, 'data' => $tourists];
     }
