@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TouristController;
+use App\Http\Controllers\TouristAttractionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,8 @@ Route::middleware(['check_admin_auth'])->group(function() {
     Route::get('/tourists', [TouristController::class, 'get']);
     Route::get('/tourists/{id}', [TouristController::class, 'person']);
     
+    Route::post('/tourist-attractions/add', [TouristAttractionController::class, 'add']);
+    Route::get('/tourist-attractions/get', [TouristAttractionController::class, 'get']);
+    Route::get('/tourist-attractions/{id}', [TouristAttractionController::class, 'getOne']);
+    Route::post('/tourist-attractions/update/{id}', [TouristAttractionController::class, 'update']);
 });
