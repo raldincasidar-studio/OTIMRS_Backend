@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TouristController;
 use App\Http\Controllers\TouristAttractionController;
+use App\Http\Controllers\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,11 @@ Route::middleware(['check_admin_auth'])->group(function() {
     Route::get('/tourist-attractions/get', [TouristAttractionController::class, 'get']);
     Route::get('/tourist-attractions/{id}', [TouristAttractionController::class, 'getOne']);
     Route::post('/tourist-attractions/update/{id}', [TouristAttractionController::class, 'update']);
+    Route::delete('/tourist-attractions/delete/{id}', [TouristAttractionController::class, 'delete']);
+
+    Route::get('/activities/get', [ActivityController::class, 'get']);
+    Route::get('/activities/{id}', [ActivityController::class, 'getOne']);
+    Route::post('/activities/add', [ActivityController::class, 'add']);
+    Route::post('/activities/edit/{id}', [ActivityController::class, 'edit']);
+    Route::delete('/activities/delete/{id}', [ActivityController::class, 'delete']);
 });
