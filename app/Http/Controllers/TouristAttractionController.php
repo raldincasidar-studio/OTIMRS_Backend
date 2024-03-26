@@ -20,7 +20,7 @@ class TouristAttractionController extends Controller
             'opening_hours' => 'nullable|string|max:255',
             'admission_fee' => 'nullable|string|max:255',
             'image_url' => 'required|string',
-            'rating' => 'nullable|numeric',
+            'rating' => 'nullable|numeric|min:0|max:5',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'contact_phone' => 'nullable|string',
@@ -46,7 +46,7 @@ class TouristAttractionController extends Controller
             'opening_hours' => 'nullable|string|max:255',
             'admission_fee' => 'nullable|string|max:255',
             'image_url' => 'required|string',
-            'rating' => 'nullable|numeric',
+            'rating' => 'nullable|numeric|min:0|max:5',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'contact_phone' => 'nullable|string',
@@ -61,6 +61,19 @@ class TouristAttractionController extends Controller
 
         // Return success response
         return ['success' => 1, 'data' => $touristAttraction];
+    }
+
+    public function delete(Request $request)
+    {
+
+        // Find the tourist attraction to delete
+        $touristAttraction = TouristAttraction::find($request->id);
+
+        // Delete the attraction
+        $touristAttraction->delete();
+
+        // Return success response
+        return ['success' => 1, 'message' => 'Deleted successfuly!'];
     }
 
     // Get all tourist attractions
