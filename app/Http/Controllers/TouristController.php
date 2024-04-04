@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\Tourist;
 
 class TouristController extends Controller
@@ -40,6 +41,17 @@ class TouristController extends Controller
     public function person(Request $request, string $id)
     {
         $tourists = Tourist::where('id', $id)->first();
+
+        return ['success' => 1, 'data' => $tourists];
+    }
+
+    public function getArrivals(Request $request) {
+
+        $from = Carbon::parse($request->get('from'))->startOfDay();
+        $to = Carbon::parse($request->get('to'))->endOfDay();
+
+        $tourists = Tourist::whereBetween('created_at', [$from, $to])->orderBy('id', 'asc')->get();
+
 
         return ['success' => 1, 'data' => $tourists];
     }
