@@ -17,10 +17,18 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('profile_picture');
-            $table->string('username');
+            $table->string('profile_picture')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
         });
+
+        DB::table('admins')->insert([
+            'first_name' => 'Admin',
+            'middle_name' => '',
+            'last_name' => 'User',
+            'username' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
     }
 
     /**

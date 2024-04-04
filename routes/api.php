@@ -25,12 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/register_tourist', [TouristController::class, 'add']);
+Route::get('/logout', [UserController::class, 'logout']);
 
 
 // Add a route middleware that checks the request header contains a token
 Route::middleware(['check_admin_auth'])->group(function() {
     // Route::get('/piste', [UserController::class, 'login']);
-    Route::get('/logout', [UserController::class, 'logout']);
     Route::get('/tourists', [TouristController::class, 'get']);
     Route::get('/tourists/{id}', [TouristController::class, 'person']);
     
@@ -45,4 +45,15 @@ Route::middleware(['check_admin_auth'])->group(function() {
     Route::post('/activities/add', [ActivityController::class, 'add']);
     Route::post('/activities/edit/{id}', [ActivityController::class, 'edit']);
     Route::delete('/activities/delete/{id}', [ActivityController::class, 'delete']);
+    
+    Route::get('/arrivals', [TouristController::class, 'getArrivals']);
+    
+    
+    
+    Route::get('/admins', [UserController::class, 'get']);
+    Route::post('/admins', [UserController::class, 'register']);
+    Route::get('/admins/{id}', [UserController::class, 'getById']);
+    Route::post('/admins/{id}', [UserController::class, 'editById']);
+    Route::delete('/admins/{id}', [UserController::class, 'deleteById']);
+    Route::delete('/admins/logout-sessions/{id}', [UserController::class, 'logoutSessions']);
 });
