@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\Tourist;
+use Illuminate\Support\Facades\Mail;
 
 class TouristController extends Controller
 {
@@ -25,6 +26,16 @@ class TouristController extends Controller
         ]);
 
         $tourist = Tourist::updateOrCreate($validatedData);
+
+        
+
+        $htmlContent = "<h1>Hello $request->name!</h1><p>Thank you for registering to OTIMRS System and welcome to <b>General Luna</b>! We have made a personalized tour guide for you to check out. Check it out here: <a href='https://localhost:5173/recommender?email=$request->email&name=$request->name'>https://localhost:5173/recommender?email=$request->email&name=$request->name</a></p>";
+
+        Mail::send([], [], function ($message) use ($htmlContent) {
+            $message->to('raldin.disomimba13@gmail.com')
+                    ->subject('Subject: Welcome to General Luna! From OTIMRS System')
+                    ->html($htmlContent);
+        });
 
         $tourist->success = 1;
         $tourist->message = 'Successfuly added!';
