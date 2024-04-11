@@ -40,7 +40,6 @@ class ActivityController extends Controller
             'message' => 'Activity deleted successfully',
         ];
     }
-
     public function add(Request $request) {
 
         // validate request and add it to Activity table

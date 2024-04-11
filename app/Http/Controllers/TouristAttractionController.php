@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TouristAttraction;
 use Illuminate\Support\Facades\Validator;
 
+
 class TouristAttractionController extends Controller
 {
     //
@@ -80,6 +81,53 @@ class TouristAttractionController extends Controller
     public function get(Request $request)
     {
         $touristAttractions = TouristAttraction::orderBy('id', 'desc')->get();
+
+        return ['success' => 1, 'data' => $touristAttractions];
+    }
+
+    
+    // Get tourist attractions only
+    public function getAttraction(Request $request)
+    {
+
+        $attractions = [
+        // 'Hotel',
+        // 'Restaurant',
+        'Museum',
+        'Beach',
+        'Landmark',
+        'Statue',
+        'Theme Park',
+        'Cinema',
+        'Shopping Mall',
+        'Gallery',
+        'Natural Attraction',
+        ];
+
+        $touristAttractions = TouristAttraction::orderBy('id', 'desc')->whereIn('category', $attractions)->get();
+
+        return ['success' => 1, 'data' => $touristAttractions];
+    }
+    
+    // Get tourist acommodation only
+    public function getAcommodation(Request $request)
+    {
+
+        $acommodation = [
+        'Hotel',
+        'Restaurant',
+        // 'Museum',
+        // 'Beach',
+        // 'Landmark',
+        // 'Statue',
+        // 'Theme Park',
+        // 'Cinema',
+        // 'Shopping Mall',
+        // 'Gallery',
+        // 'Natural Attraction',
+        ];
+
+        $touristAttractions = TouristAttraction::orderBy('id', 'desc')->whereIn('category', $acommodation)->get();
 
         return ['success' => 1, 'data' => $touristAttractions];
     }

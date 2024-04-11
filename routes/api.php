@@ -27,6 +27,10 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/register_tourist', [TouristController::class, 'add']);
 Route::get('/logout', [UserController::class, 'logout']);
 
+Route::get('/activities/get', [ActivityController::class, 'get']);
+Route::get('/tourist-attractions/getAttraction', [TouristAttractionController::class, 'getAttraction']);
+Route::get('/tourist-attractions/getAcommodation', [TouristAttractionController::class, 'getAcommodation']);
+
 
 // Add a route middleware that checks the request header contains a token
 Route::middleware(['check_admin_auth'])->group(function() {
