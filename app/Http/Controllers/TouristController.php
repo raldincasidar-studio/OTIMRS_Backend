@@ -29,10 +29,10 @@ class TouristController extends Controller
 
         
 
-        $htmlContent = "<h1>Hello $request->name!</h1><p>Thank you for registering to OTIMRS System and welcome to <b>General Luna</b>! We have made a personalized tour guide for you to check out. Check it out here: <a href='https://localhost:5173/recommender?email=$request->email&name=$request->name'>https://localhost:5173/recommender?email=$request->email&name=$request->name</a></p>";
+        $htmlContent = "<h1>Hello $request->name!</h1><p>Thank you for registering to OTIMRS System and welcome to <b>General Luna</b>! We have made a personalized tour guide for you to check out. Check it out here: <a href='http://localhost:5173/recommender?email=$request->email&name=$request->name'>http://localhost:5173/recommender?email=$request->email&name=$request->name</a></p>";
 
-        Mail::send([], [], function ($message) use ($htmlContent) {
-            $message->to('raldin.disomimba13@gmail.com')
+        Mail::send([], [], function ($message) use ($htmlContent, $request) {
+            $message->to($request->email)
                     ->subject('Subject: Welcome to General Luna! From OTIMRS System')
                     ->html($htmlContent);
         });

@@ -37,14 +37,12 @@ Route::middleware(['check_admin_auth'])->group(function() {
     // Route::get('/piste', [UserController::class, 'login']);
     Route::get('/tourists', [TouristController::class, 'get']);
     Route::get('/tourists/{id}', [TouristController::class, 'person']);
-    
     Route::post('/tourist-attractions/add', [TouristAttractionController::class, 'add']);
     Route::get('/tourist-attractions/get', [TouristAttractionController::class, 'get']);
-    Route::get('/tourist-attractions/{id}', [TouristAttractionController::class, 'getOne']);
     Route::post('/tourist-attractions/update/{id}', [TouristAttractionController::class, 'update']);
     Route::delete('/tourist-attractions/delete/{id}', [TouristAttractionController::class, 'delete']);
 
-    Route::get('/activities/get', [ActivityController::class, 'get']);
+    
     Route::get('/activities/{id}', [ActivityController::class, 'getOne']);
     Route::post('/activities/add', [ActivityController::class, 'add']);
     Route::post('/activities/edit/{id}', [ActivityController::class, 'edit']);
@@ -61,3 +59,6 @@ Route::middleware(['check_admin_auth'])->group(function() {
     Route::delete('/admins/{id}', [UserController::class, 'deleteById']);
     Route::delete('/admins/logout-sessions/{id}', [UserController::class, 'logoutSessions']);
 });
+
+
+Route::get('/tourist-attractions/{id}', [TouristAttractionController::class, 'getOne']);

@@ -82,8 +82,11 @@ class TouristAttractionController extends Controller
     {
         $touristAttractions = TouristAttraction::orderBy('id', 'desc')->get();
 
-        return ['success' => 1, 'data' => $touristAttractions];
+        // error_log('Some message here yawaa.');
+
+        return ['success' => 12312323, 'data' => $touristAttractions];
     }
+
 
     
     // Get tourist attractions only
@@ -103,6 +106,9 @@ class TouristAttractionController extends Controller
         'Gallery',
         'Natural Attraction',
         ];
+
+        // var_dump('yawa');
+        
 
         $touristAttractions = TouristAttraction::orderBy('id', 'desc')->whereIn('category', $attractions)->get();
 
